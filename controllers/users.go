@@ -107,7 +107,6 @@ func PostUser(db *sql.DB) http.HandlerFunc {
 }
 
 
-// TODO
 // Update user
 func UpdateUser(db *sql.DB) http.HandlerFunc {
 	fn := func(w http.ResponseWriter, req *http.Request) {
@@ -132,6 +131,14 @@ func UpdateUser(db *sql.DB) http.HandlerFunc {
 		checkErr(err)
 
 		responders.Success(w,"user was updated", http.StatusOK)
+	}
+	return http.HandlerFunc(fn)
+}
+
+// Update user
+func DeleteUser(db *sql.DB) http.HandlerFunc {
+	fn := func(w http.ResponseWriter, req *http.Request) {
+
 	}
 	return http.HandlerFunc(fn)
 }
