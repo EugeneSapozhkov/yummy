@@ -3,6 +3,7 @@ package controllers
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -138,7 +139,19 @@ func UpdateUser(db *sql.DB) http.HandlerFunc {
 // Update user
 func DeleteUser(db *sql.DB) http.HandlerFunc {
 	fn := func(w http.ResponseWriter, req *http.Request) {
+		userId := mux.Vars(req)["id"]
 
+		result, err := db.Exec("DELETE FROM users WHERE id = ?;", userId)
+		checkErr(err)
+
+		res, err := result.RowsAffected()
+		fmt.Println(res)
+
+		if res > 0 {
+			responders.Success(w,"user was deleted", http.StatusOK)
+		} else {
+			responders.Error(w,"user not found", http.StatusNotAcceptable)
+		}
 	}
 	return http.HandlerFunc(fn)
 }

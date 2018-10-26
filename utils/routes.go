@@ -12,6 +12,7 @@ func RouterInit(db *sql.DB) *mux.Router {
 	r.HandleFunc("/user/{id}", controllers.GetUserById(db)).Methods("GET")
 	r.HandleFunc("/user", controllers.PostUser(db)).Methods("POST")
 	r.HandleFunc("/user/{id}", controllers.UpdateUser(db)).Methods("PATCH")
+	r.HandleFunc("/user/{id}", controllers.DeleteUser(db)).Methods("DELETE")
 	return r
 }
 
